@@ -1,7 +1,7 @@
 import { useState } from "react";
+
 import {
   signInWithGooglePopup,
-  createuserDocumentFromAuth,
   signInAuthWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
@@ -26,8 +26,8 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createuserDocumentFromAuth(user);
+    console.log("aqui");
+    await signInWithGooglePopup();
   };
 
   const resetFormFields = () => {
@@ -35,23 +35,24 @@ const SignInForm = () => {
   };
 
   const handleSubmit = async (event) => {
+    console.log("aqui2");
     event.preventDefault(); // nao permitir comportamento usual do form
 
     try {
-      const response = await signInAuthWithEmailAndPassword(email, password);
-      console.log(response);
+      await signInAuthWithEmailAndPassword(email, password);
+
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/wrong-password":
-          alert("incorret password for email");
-          break;
-        case "auth/user-not-found":
-          alert("no user associated with this email");
-          break;
-        default:
-          console.log(error);
-      }
+      // switch (error.code) {
+      //   case "auth/wrong-password":
+      //     alert("incorret password for email");
+      //     break;
+      //   case "auth/user-not-found":
+      //     alert("no user associated with this email");
+      //     break;
+      //   default:
+      //     console.log(error);
+      // }
     }
   };
 
@@ -80,8 +81,8 @@ const SignInForm = () => {
 
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
-            Google sign in
+          <Button buttonType="google" type="button" onClick={signInWithGoogle}>
+            Sign In Google
           </Button>
         </div>
       </form>
