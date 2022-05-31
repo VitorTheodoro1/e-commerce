@@ -26,7 +26,6 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    console.log("aqui");
     await signInWithGooglePopup();
   };
 
@@ -35,7 +34,6 @@ const SignInForm = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log("aqui2");
     event.preventDefault(); // nao permitir comportamento usual do form
 
     try {
